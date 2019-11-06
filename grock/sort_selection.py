@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import random
+
 
 def get_min_idx(arr):
     min_idx = 0
@@ -42,6 +44,9 @@ def test(f):
     assert f(arr_2_unsorted) == [1, 2]
     arr_big = [10, 5, 4, 2, 9, -12, 2, 1]
     assert f(arr_big) == [-12, 1, 2, 2, 4, 5, 9, 10]
+
+    arr_random = [random.randint for x in xrange(100)]
+    assert f(arr_random) == sorted(arr_random)
 
 
 def main():
