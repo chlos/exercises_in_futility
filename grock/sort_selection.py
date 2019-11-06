@@ -45,8 +45,9 @@ def test(f):
     arr_big = [10, 5, 4, 2, 9, -12, 2, 1]
     assert f(arr_big) == [-12, 1, 2, 2, 4, 5, 9, 10]
 
-    arr_random = [random.randint for x in xrange(100)]
-    assert f(arr_random) == sorted(arr_random)
+    arr_random = [random.randint(-1000, 1000) for x in xrange(10000)]
+    arr_sorted = sorted(arr_random)[:]
+    assert f(arr_random) == arr_sorted
 
 
 def main():
