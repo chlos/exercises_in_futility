@@ -28,6 +28,28 @@ def has_cycle(graph, n_verticles):
     return False
 
 
+def has_cycle_recur_color(graph, node, colors):
+    colors[node] = 'grey'
+    for neighbor in graph[node]:
+        if colors[neighbor] == 'grey':
+            return True
+        elif colors[neighbor] == 'white':
+            if has_cycle_recur_color(graph, neighbor, colors):
+                return True
+
+    colors[node] = 'black'
+    return False
+
+
+def has_cycle_color(graph, n_verticles):
+    colors = ['white'] * n_verticles
+    for node in xrange(n_verticles):
+        if colors[node] == 'white':
+            if has_cycle_recur_color(graph, node, colors):
+                return True
+    return False
+
+
 def test(func):
     graph_with_cycle = defaultdict(list)
     graph_with_cycle[0].append(1)
@@ -50,6 +72,7 @@ def test(func):
 
 def main():
     test(has_cycle)
+    test(has_cycle_color)
 
 
 if __name__ == '__main__':
