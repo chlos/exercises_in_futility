@@ -18,7 +18,8 @@ SERVERS_POOL = None
 @app.route('/<path:path>')
 def balancer_handler(path):
     # FIXME
-    # circuit breaker
+    # * circuit breaker
+    # * add more balancing policies: weigths, load count
     current_server = next(SERVERS_POOL)
     print('Current server: ', current_server)
     service_response = requests.get(
