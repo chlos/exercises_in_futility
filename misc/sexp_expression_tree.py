@@ -55,21 +55,21 @@ class ParseSexp(object):
         return sexp_tokenized
 
     def _parse(self):
+        if self.sexp_tokenized[0] == ')':
+            self.sexp_tokenized.pop(0)
         current_token = self.sexp_tokenized.pop(0)
+
         if current_token == '(':
-            while self.sexp_tokenized[0] != ')':
-                operator = self.sexp_tokenized.pop(0)
+            operator = self.sexp_tokenized.pop(0)
 
-                current_node = TreeNode(operator)
-                if self.root_node is None:
-                    self.root_node = current_node
+            current_node = TreeNode(operator)
+            if self.root_node is None:
+                self.root_node = current_node
 
-                current_node.add_left_child(self._parse())
-                current_node.add_right_child(self._parse())
+            current_node.add_left_child(self._parse())
+            current_node.add_right_child(self._parse())
 
-                return current_node
-            else:
-                self.sexp_tokenized.pop(0)
+            return current_node
         else:
             return TreeNode(self._handle_scalar_value(current_token))
 
@@ -86,22 +86,33 @@ def test(parser):
     assert root.right.right.value == '+'
     assert root.right.right.left.value == 5
     assert root.right.right.right.value == 9
-    print 'OK\n\n'
+    print 'OK\n'
 
 
 def test2(parser):
+    '''
+        +
+       /  \
+      -    *
+     / \   /\
+    10 12 2  +
+            / \
+           5   9
+    '''
     sexp = '(+ (- 10 12) (* 2 (+ 5 9)))'
     sexp_parsed = parser(sexp)
     sexp_parsed.pretty_print()
     root = sexp_parsed.root_node
     assert root.value == '+'
-    assert root.left.value == 3
+    assert root.left.value == '-'
+    assert root.left.left.value == 10
+    assert root.left.right.value == 12
     assert root.right.value == '*'
     assert root.right.left.value == 2
     assert root.right.right.value == '+'
     assert root.right.right.left.value == 5
     assert root.right.right.right.value == 9
-    print 'OK\n\n'
+    print 'OK\n'
 
 
 def main():
