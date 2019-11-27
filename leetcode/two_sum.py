@@ -16,13 +16,26 @@ def twoSum(nums, target):
                     return i1, i2
 
 
+def twoSumHash(nums, target):
+    num_index_map = {}
+    for i, n in enumerate(nums):
+        num_index_map[n] = i
+    for n, i in num_index_map.iteritems():
+        complement = target - n
+        if complement in num_index_map:
+            return i, num_index_map[complement]
+
+
 def test(f):
-    assert f([3, 2, 4], 6) == (1, 2)
+    f_result = f([3, 2, 4], 6)
+    print f_result
+    assert f_result == (1, 2)
     print 'OK'
 
 
 def main():
     test(twoSum)
+    test(twoSumHash)
 
 
 if __name__ == "__main__":
