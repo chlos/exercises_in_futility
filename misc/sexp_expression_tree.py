@@ -69,7 +69,6 @@ class ParseSexp(object):
             current_node.add_left_child(self._parse())
             current_node.add_right_child(self._parse())
 
-            return current_node
         else:
             return TreeNode(self._handle_scalar_value(current_token))
 
