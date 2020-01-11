@@ -23,8 +23,8 @@ class Stack(object):
         return self.stack[-1]
 
 
-def test_stack():
-    s = Stack()
+def test_stack(stack_class):
+    s = stack_class()
     assert s.size == 0
 
     s.push(1)
@@ -71,41 +71,57 @@ def sort_stack(stack):
                 continue
             stack.push(val)
 
+    return stack
 
-def test_sort_stack():
+
+def sort_stack_2(stack):
+    '''
+    https://www.geeksforgeeks.org/sort-stack-using-temporary-stack/
+    '''
+    tmp_stack = Stack()
+    while stack.size:
+        curr_val = stack.pop()
+        while tmp_stack.size and tmp_stack.peek() < curr_val:
+            stack.push(tmp_stack.pop())
+        tmp_stack.push(curr_val)
+
+    return tmp_stack
+
+
+def test_sort_stack(sort_func):
     s = Stack()
-    sort_stack(s)
-    assert s.stack == []
+    result = sort_func(s)
+    assert result.stack == []
 
     s = Stack()
     s.push(1)
-    sort_stack(s)
-    assert s.stack == [1]
+    result = sort_func(s)
+    assert result.stack == [1]
 
     s = Stack()
     s.push(1)
     s.push(2)
-    sort_stack(s)
-    assert s.stack == [2, 1]
+    result = sort_func(s)
+    assert result.stack == [2, 1]
 
     s = Stack()
     s.push(2)
     s.push(1)
-    sort_stack(s)
-    assert s.stack == [2, 1]
+    result = sort_func(s)
+    assert result.stack == [2, 1]
 
     s = Stack()
     s.push(1)
     s.push(1)
-    sort_stack(s)
-    assert s.stack == [1, 1]
+    result = sort_func(s)
+    assert result.stack == [1, 1]
 
     s = Stack()
     s.push(1)
     s.push(3)
     s.push(2)
-    sort_stack(s)
-    assert s.stack == [3, 2, 1]
+    result = sort_func(s)
+    assert result.stack == [3, 2, 1]
 
     s = Stack()
     s.push(1)
@@ -115,15 +131,16 @@ def test_sort_stack():
     s.push(10)
     s.push(3)
     s.push(2)
-    sort_stack(s)
-    assert s.stack == [10, 3, 3, 2, 2, 1, 1]
+    result = sort_func(s)
+    assert result.stack == [10, 3, 3, 2, 2, 1, 1]
 
-    print 'sort_stack() OK'
+    print '{} OK'.format(sort_func)
 
 
 def main():
-    test_stack()
-    test_sort_stack()
+    test_stack(Stack)
+    test_sort_stack(sort_stack)
+    test_sort_stack(sort_stack_2)
 
 
 if __name__ == "__main__":
