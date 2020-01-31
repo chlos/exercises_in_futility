@@ -25,17 +25,18 @@ class Solution(object):
         """
         def dfs(prev_node, curr_node):
             self.visited.add((prev_node, curr_node))
-            self.itinerary.append(curr_node)
-            for next_node in self.graph[curr_node]:
+            print 'self.graph[{}]: {}'.format(curr_node, sorted(self.graph[curr_node]))       # FIXME
+            for next_node in sorted(self.graph[curr_node]):
                 if (curr_node, next_node) not in self.visited:
                     dfs(curr_node, next_node)
+            self.itinerary.append(curr_node)
 
         self.buildGraph(tickets)
         dfs(None, self.start)
         print 'visited: ', self.visited  # FIXME
-        print 'route: ', self.itinerary  # FIXME
+        print 'route: ', self.itinerary[::-1]  # FIXME
 
-        return self.itinerary
+        return self.itinerary[::-1]
 
 
 def main():
@@ -48,6 +49,23 @@ def main():
     s = Solution()
     route = s.findItinerary([["JFK", "KUL"], ["JFK", "NRT"], ["NRT", "JFK"]])
     assert route == ["JFK", "NRT", "JFK", "KUL"]
+    print 'test 2 OK'
+    print
+
+    s = Solution()
+    route = s.findItinerary([["JFK", "SFO"], ["JFK", "ATL"], ["SFO", "ATL"], ["ATL", "JFK"], ["ATL", "SFO"]])
+    assert route == ["JFK", "ATL", "JFK", "SFO", "ATL", "SFO"]
+    print 'test 3 OK'
+    print
+
+    s = Solution()
+    route = s.findItinerary([
+        ["EZE", "AXA"], ["TIA", "ANU"], ["ANU", "JFK"], ["JFK", "ANU"], ["ANU", "EZE"],
+        ["TIA", "ANU"], ["AXA", "TIA"], ["TIA", "JFK"], ["ANU", "TIA"], ["JFK", "TIA"],
+    ])
+    assert route == ["JFK", "ANU", "EZE", "AXA", "TIA", "ANU", "JFK", "TIA", "ANU", "TIA", "JFK"]
+    print 'test 4 OK'
+    print
 
 
 if __name__ == "__main__":
