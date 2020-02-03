@@ -10,13 +10,11 @@ class Solution(object):
 
     def __init__(self):
         self.graph = defaultdict(list)
-        self.visited = set()
         self.itinerary = []
 
     def buildGraph(self, tickets):
-        for src, dst in tickets:
+        for src, dst in sorted(tickets)[::-1]:
             self.graph[src].append(dst)
-        print self.graph    # FIXME
 
     def findItinerary(self, tickets):
         """
@@ -24,17 +22,13 @@ class Solution(object):
         :rtype: List[str]
         """
         def dfs(prev_node, curr_node):
-            self.visited.add((prev_node, curr_node))
-            print 'self.graph[{}]: {}'.format(curr_node, sorted(self.graph[curr_node]))       # FIXME
-            for next_node in sorted(self.graph[curr_node]):
-                if (curr_node, next_node) not in self.visited:
-                    dfs(curr_node, next_node)
+            while self.graph[curr_node]:
+                next_node = self.graph[curr_node].pop()
+                dfs(curr_node, next_node)
             self.itinerary.append(curr_node)
 
         self.buildGraph(tickets)
         dfs(None, self.start)
-        print 'visited: ', self.visited  # FIXME
-        print 'route: ', self.itinerary[::-1]  # FIXME
 
         return self.itinerary[::-1]
 
