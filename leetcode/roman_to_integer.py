@@ -24,21 +24,18 @@ class Solution(object):
         while i < len(s):
             curr_digit = s[i]
             next_digit = s[i+1] if i < len(s)-1 else None
-            print i, curr_digit, map[s[i]], next_digit
             # if (
             #     curr_digit == 'I' and next_digit in ['V', 'X']
             #     or curr_digit == 'X' and next_digit in ['L', 'C']
             #     or curr_digit == 'C' and next_digit in ['D', 'M']
             # ):
             if next_digit is not None and map[curr_digit] < map[next_digit]:
-                print map[curr_digit], '<', map[next_digit]
                 result += map[next_digit] - map[curr_digit]
                 i += 2
             else:
                 result += map[s[i]]
                 i += 1
 
-        # print result
         return result
 
 s = Solution()
