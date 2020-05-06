@@ -1,8 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from collections import defaultdict
 
 
-def twoSum(nums, target):
+class Solution(object):
+    # brute force
+    def twoSum_BruteForce(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
@@ -15,28 +17,37 @@ def twoSum(nums, target):
                 if n1 + n2 == target:
                     return i1, i2
 
+    # hash table: two-pass
+    def twoSum_HashTwoPass(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = defaultdict(list)
+        for i, n in enumerate(nums):
+            d[n].append(i)
+        # print d
+        for n, i in d.iteritems():
+            i1 = i[0]
+            n2 = target - n
+            if d.get(n2):
+                for i2 in d[n2]:
+                    if i2 == i1:
+                        continue
+                    # print i1, i2
+                    return i1, i2
 
-def twoSumHash(nums, target):
-    num_index_map = {}
-    for i, n in enumerate(nums):
-        num_index_map[n] = i
-    for n, i in num_index_map.iteritems():
-        complement = target - n
-        if complement in num_index_map:
-            return i, num_index_map[complement]
-
-
-def test(f):
-    f_result = f([3, 2, 4], 6)
-    print f_result
-    assert f_result == (1, 2)
-    print 'OK'
-
-
-def main():
-    test(twoSum)
-    test(twoSumHash)
-
-
-if __name__ == "__main__":
-    main()
+    # hash table: one-pass
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = defaultdict(int)
+        for i, n in enumerate(nums):
+            complement = target - n
+            if d.get(complement) is not None:
+                return i, d.get(complement)
+            d[n] = i
