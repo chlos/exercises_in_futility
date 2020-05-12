@@ -11,19 +11,24 @@ class Solution(object):
         :type prerequisites: List[List[int]]
         :rtype: bool
         """
-        def is_cycle(course, visited):
+        def is_cycle(course, visited, recur_stack):
             print course, visited       # FIXME
             if course in visited:
                 print 'VISITED!'
                 return True
 
             visited.add(course)
+            recur_stack.add(course)
             for pre in courses_graph[course]:
                 print 'pre:', pre
-                if is_cycle(pre, visited):
+                if pre not in visited:
+                    if is_cycle(pre, visited, recur_stack):
+                        return True
+                elif pre in recur_stack:
                     return True
 
             print 'OK, no cycle'
+            recur_stack.remove(course)
             return False
 
         courses_graph = defaultdict(list)
@@ -34,7 +39,7 @@ class Solution(object):
         # for course in courses_graph.iterkeys():
         for course in list(courses_graph):
             print 'course: ', course    # FIXME
-            if is_cycle(course, set()):
+            if is_cycle(course, set(), set()):
                 return False
 
         return True
