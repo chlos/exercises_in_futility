@@ -48,7 +48,6 @@ class Solution:
 
         nodes = deque()
         nodes.append(root)
-        curr_level = []
         while nodes:
             level_n = len(nodes)
             curr_level = []
