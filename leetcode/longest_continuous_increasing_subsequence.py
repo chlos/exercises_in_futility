@@ -10,16 +10,16 @@ class Solution:
         if len(nums) <= 1:
             return nums_len
 
-        l = 0
-        r = 1
+        left = 0
+        right = 1
         curr_subseq_len = 1
-        while r < nums_len:
-            if nums[r - 1] < nums[r]:
-                r += 1
+        while right < nums_len:
+            if nums[right - 1] < nums[right]:
+                right += 1
             else:
-                curr_subseq_len = max(curr_subseq_len, r - l)
-                l = r
-                r += 1
+                curr_subseq_len = max(curr_subseq_len, right - left)
+                left = right
+                right += 1
 
-        curr_subseq_len = max(curr_subseq_len, r - l)
+        curr_subseq_len = max(curr_subseq_len, right - left)
         return curr_subseq_len
