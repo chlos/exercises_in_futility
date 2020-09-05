@@ -10,7 +10,7 @@ def get_data():
     data = input().split()
 
     n = int(data[0])
-    print(n)    # FIXME
+    # print(n)    # FIXME
 
     vertices = []
     i = 1
@@ -18,10 +18,10 @@ def get_data():
         vertex = Point(float(data[i]), float(data[i + 1]))
         vertices.append(vertex)
         i += 2
-    print(vertices)     # FIXME
+    # print(vertices)     # FIXME
 
     point = Point(float(data[-2]), float(data[-1]))
-    print(point)     # FIXME
+    # print(point)     # FIXME
 
     return vertices, point
 
