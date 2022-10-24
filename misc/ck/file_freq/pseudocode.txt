@@ -1,0 +1,89 @@
+// To execute Go code, please declare a func main() in a package "main"
+
+/*
+Part 1 Static File
+You are given a static log file containing billions of entries. Each entry contains a timestamp and the name of a food order. The entries in the log file appear in order of increasing timestamp. Design a method getCommon(k) to determine the k most common food orders found in the log file.
+
+Hamburger          1595268625
+Salad              1595268626
+HotDog             1595268627
+Hamburger          1595268628
+...
+
+*/
+
+n = number of entries
+
+freqs := map[string]int
+// O(n)
+for _, line := lines { // O(n)
+    foodName := getFoodName(line)
+    freqs[foodName]++ // O(1)
+}
+
+freqs = {burger:2, salad:1, hotdog:1}
+
+m = distinct number of foods
+
+// get pairs from a hashmap
+pairs := [(burger,2), (salad,1), (hotdog,1)] // O(m)
+loop through entries in freqs map
+  pairs += new tuple(food, count)
+
+// sort
+sortedPairs := sort(pairs, sort by countNum) // O(m log m)
+
+freqs = {burger:2, salad:1, hotdog:3}
+
+sortedPairs = []
+loop through entries in freqs map // O(m)
+  // insert entry into sortedPairs in the right order
+
+// binary search O(log m)
+sortedPairs = [(hotdog, 3), (burger, 2), (salad, 1)]
+
+/**
+Part 2 Streaming
+We now want to analyze food orders in a real-time streaming application. All food orders may not have been received at the time the top k most common ones need to be computed. Given the addition of this requirement, how would you handle processing incoming food orders and computing the top k?  Your solution should have two functions ingestOrder(order) and getCommon(k). Expect the number of function calls to ingestOrder(order) and getCommon(k) to be roughly equal.
+**/
+
+hamburger
+salad
+hamburger
+
+freqs := {orderName: orderCounts}   // O(n)
+// {hamburger: 1}
+// {hamburger: 1, salad: 1}
+// {hamburger: 2, salad: 1}
+
+ordersAddrs := {orderName: orderAddr}
+// {}
+// {hamburger: 0x11111}
+// {hamburger: 0x11111, salad: 0x1234234}
+
+// get an order
+orderAddr := ordersAddrs[orderName]
+if orderAddr = nil {
+    // insert it to the tail // O(1)
+    // [(hamburger 1)]
+    // [(hamburger 1) -> (salad 1)]
+} else {
+    sortedList.getAddByAddr(orderAddr).Count++
+    while true  {
+        check if updatedElement.prev.Count < updatedElement.Count {
+            swap elements
+        }
+        if updEl.prev.count == updEl.count {
+            break
+        }
+    }
+
+    insert updatedOrder to the same place
+}
+
+funcj getCommon(k) {
+    for i : = 0; i < k ; k++ {
+        food := sortedPairs.Next()
+        print(food)
+    }
+} // O(k)
