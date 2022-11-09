@@ -1,3 +1,7 @@
+# see the info about stream of elements:
+# https://leetcode.com/problems/top-k-frequent-elements/solutions/628413/solution-to-get-top-k-elements-coming-in-a-streamjava-instead-of-knowing-array-earlier/
+# https://leetcode.com/problems/top-k-frequent-elements/solutions/1391757/top-k-frequent-for-data-stream/
+
 from typing import List
 import collections
 import heapq
