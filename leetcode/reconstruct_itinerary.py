@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# best explaination: https://leetcode.com/problems/reconstruct-itinerary/solutions/78768/short-ruby-python-java-c/
+
 
 from collections import defaultdict
 
