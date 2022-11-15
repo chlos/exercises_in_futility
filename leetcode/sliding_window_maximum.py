@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import collections
+import heapq
 from typing import List
 
 
@@ -71,6 +72,29 @@ class Solution:
             window.append(nums[i])
             window_max = max(window)
             result.append(window_max)
+
+        return result
+
+    def maxSlidingWindow_maxHeap(self, nums: List[int], k: int) -> List[int]:
+        result = []
+        window = [] # min heap of (-value, index)
+
+        # initial window
+        for i in range(k):
+            heapq.heappush(window, (-nums[i], i))   # max heap
+        result.append(-window[0][0])
+
+        i = k
+        while i < len(nums):
+            # remove left element if it's outside of the window
+            while window and window[0][1] < i - k + 1:
+                heapq.heappop(window)
+
+            # insert right element into the heap
+            heapq.heappush(window, (-nums[i], i))
+
+            result.append(-window[0][0])
+            i += 1
 
         return result
 
