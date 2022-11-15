@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from collections import deque
+import collections
 from typing import List
 
 
@@ -57,6 +57,23 @@ class QueueWithMax():
 
 
 class Solution:
+    def maxSlidingWindow_bruteForce(self, nums: List[int], k: int) -> List[int]:
+        result = []
+
+        window = collections.deque()
+        for i in range(k):
+            window.append(nums[i])
+        window_max = max(window)
+        result.append(window_max)
+        
+        for i in range(k, len(nums)):
+            window.popleft()
+            window.append(nums[i])
+            window_max = max(window)
+            result.append(window_max)
+
+        return result
+
     def maxSlidingWindow_QueueWithMax(self, nums: List[int], k: int) -> List[int]:
         maximums = []
         q = QueueWithMax()
@@ -72,23 +89,29 @@ class Solution:
 
         return maximums
 
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        maximums = []
-        # deque with num indeces
-        q = deque()
+    # BEST!
+    # https://leetcode.com/problems/sliding-window-maximum/solutions/871317/clear-thinking-process-with-picture-brute-force-to-mono-deque-python-java-javascript/
+    # https://algo.monster/problems/sliding_window_maximum
+    def maxSlidingWindow_monotonicDeque(self, nums: List[int], k: int) -> List[int]:
+        result = []
 
-        for i in range(len(nums)):
-            # check q size vs window size
-            if q and q[0] < i - k + 1:
-                q.popleft()
+        # we store indices instead of actual elements in the deque.
+        # This is because we need the index to know if an element is out of the window
+        # or not and we can always get the value using the index from the array
+        window = collections.deque()
+        for i, n in enumerate(nums):
+            # remove first element if it's outside the window
+            if window and window[0] <= i - k:
+                window.popleft()
 
-            # pop elements which will not be maximums in current window
-            while q and nums[q[-1]] < nums[i]:
-                q.pop()
+            # when we push an element into the deque,
+            # we first pop everything smaller than it out of the deque
+            while window and nums[window[-1]] <= n:
+                window.pop()
+            window.append(i)
 
-            q.append(i)
+            # we have full k-window
+            if i >= k-1:
+                result.append(nums[window[0]])
 
-            if i >= k - 1:
-                maximums.append(nums[q[0]])
-
-        return maximums
+        return result
