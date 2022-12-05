@@ -27,6 +27,4 @@ class Solution(object):
             if not isValidRecurse(node.right, lower=node.val, upper=upper):
                 return False
 
-            return True
-
         return isValidRecurse(root)

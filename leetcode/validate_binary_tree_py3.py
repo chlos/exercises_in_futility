@@ -7,6 +7,21 @@ class TreeNode:
 
 
 class Solution:
+    def isValidBST_recursive(self, root: Optional[TreeNode]) -> bool:
+        def isValidRecur(node, lower_limit, upper_limit):
+            if node is None:
+                return True
+
+            if node.val <= lower_limit or node.val >= upper_limit:
+                return False
+
+            return (
+                isValidRecur(node.left, lower_limit, node.val) and
+                isValidRecur(node.right, node.val, upper_limit)
+            )
+
+        return isValidRecur(root, -float("inf"), float("inf"))
+
     def isValidBST(self, root: TreeNode) -> bool:
         if not root:
             return True
