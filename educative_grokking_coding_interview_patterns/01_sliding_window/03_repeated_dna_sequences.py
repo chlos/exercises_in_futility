@@ -3,7 +3,7 @@ import collections
 
 class Solution:
     # sliding window; dict + string slices for calculating hashes
-    def findRepeatedDnaSequences_windowDict(self, s: str) -> List[str]:
+    def findRepeatedDnaSequences_windowDict(self, s: str) -> Set[str]:
         if len(s) < k:
             return []
 
@@ -19,7 +19,7 @@ class Solution:
         return seq_set
 
     # sliding window; rollling hash
-    def findRepeatedDnaSequences(self, s: str) -> List[str]:
+    def findRepeatedDnaSequences(self, s: str) -> Set[str]:
         if len(s) < k:
             return []
 
