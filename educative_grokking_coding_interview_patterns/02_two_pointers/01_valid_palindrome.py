@@ -1,6 +1,6 @@
 def is_palindrome(s):
   left, right = 0, len(s) - 1
-  while left < len(s) / 2:
+  while left < right:
     if s[left] != s[right]:
       return False
     left += 1
