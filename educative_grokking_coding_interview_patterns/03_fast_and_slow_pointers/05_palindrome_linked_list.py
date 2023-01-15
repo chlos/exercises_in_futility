@@ -10,22 +10,6 @@ class ListNode(object):
 
 
 class Solution:
-    # stack; space O(n)
-    def isPalindrome_stack(self, head: Optional[ListNode]) -> bool:
-        stack = []
-        node = head
-        while node:
-            stack.append(node.val)
-            node = node.next
-
-        node = head
-        while node:
-            if stack.pop() != node.val:
-                return False
-            node = node.next
-
-        return True
-
     # reverse the 2nd half of linked list
     # space O(1)
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
