@@ -15,7 +15,6 @@ class KthLargest_sort:
     def add(self, val: int) -> int:
         self.data.append(val)
         self.data.sort(reverse=True)
-        print(self.data)
         return self.data[self.k - 1]
 
 
