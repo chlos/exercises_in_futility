@@ -1,5 +1,6 @@
 class Solution:
     # top down recursive + cheating with lru cache
+    # https://leetcode.com/problems/edit-distance/solutions/1475220/python-3-solutions-top-down-dp-bottom-up-dp-o-n-in-space-clean-concise/
     def minDistance_recur(self, word1: str, word2: str) -> int:
         @lru_cache(None)
         def recur(idx1, idx2):
@@ -22,6 +23,7 @@ class Solution:
         return recur(len(word1), len(word2))
 
     # DP solution, bottom up, iterative
+    # https://leetcode.com/problems/edit-distance/solutions/159295/python-solutions-and-intuition/
     def minDistance(self, word1, word2):
         m = len(word1)
         n = len(word2)
