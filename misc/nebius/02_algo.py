@@ -9,6 +9,7 @@ OneEditApart("cat", "cast") -> true
 OneEditApart("cat", "at") -> true 
 OneEditApart("cat", "acts") -> false
 '''
+# https://leetcode.com/problems/edit-distance/description/
 
 
 def is_fixable(s1, s2):
