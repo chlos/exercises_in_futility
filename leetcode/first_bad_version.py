@@ -1,32 +1,16 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-
 # The isBadVersion API is already defined for you.
-# @param version, an integer
-# @return a bool
-# def isBadVersion(version):
+# def isBadVersion(version: int) -> bool:
 
-def isBadVersion(version):
-    pass
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        left, right = 1, n
+        while left < right:
+            mid = (left + right) // 2
 
-
-class Solution(object):
-    def firstBadVersion(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        l = 1
-        r = n
-        while l < n:
-            mid = (l + r) / 2
-            if isBadVersion(mid):
-                r = mid
+            is_bad = isBadVersion(mid)
+            if is_bad:
+                right = mid
             else:
-                l = mid
+                left = mid + 1
 
-        return l
-
-s = Solution()
-assert s.firstBadVersion(5) == 4
+        return left
