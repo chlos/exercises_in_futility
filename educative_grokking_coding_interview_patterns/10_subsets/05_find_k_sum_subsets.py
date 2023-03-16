@@ -1,3 +1,10 @@
+# see more cases + dp solutions:
+# https://leetcode.com/problems/combination-sum/
+# https://leetcode.com/problems/combination-sum-ii/
+# https://leetcode.com/problems/combination-sum-iii/
+# https://leetcode.com/problems/combination-sum-iv/
+
+
 def get_k_sum_subsets(set_of_integers, target_sum):
   subsets = []
 
