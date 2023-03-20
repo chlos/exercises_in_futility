@@ -37,7 +37,7 @@ class Solution:
                 is_island = is_island_dfs(r, c)
                 if is_island:
                     result += 1
-        
+
         return result
 
     # BFS
@@ -77,5 +77,5 @@ class Solution:
                     result += 1
                     grid[r][c] = VISITED
                     bfs(r, c)
-        
+
         return result
