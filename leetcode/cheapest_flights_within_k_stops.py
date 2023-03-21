@@ -119,6 +119,7 @@ class Solution:
 
 # BFS: fastest
 # https://leetcode.com/problems/cheapest-flights-within-k-stops/solutions/3099885/day-26-simple-bfs-easiest-beginner-friendly-solution/
+# https://leetcode.com/problems/cheapest-flights-within-k-stops/solutions/267200/python-dijkstra/
 class Solution_BFS:
     def buildGraph(self, flights):
         graph = collections.defaultdict(list)
