@@ -12,21 +12,21 @@ class Solution(object):
         :rtype: bool
         """
         def is_cycle(course, visited):
-            print course, visited       # FIXME
+            # print course, visited       # FIXME
             if visited[course]:
-                print 'VISITED!'
+                # print 'VISITED!'
                 return True
 
             visited[course] = True
             for pre in courses_graph[course]:
-                print 'pre:', pre
+                # print 'pre:', pre
                 if not visited[pre]:
                     if is_cycle(pre, visited):
                         return True
                 else:
                     return True
 
-            print 'OK, no cycle'
+            # print 'OK, no cycle'
             visited[course] = False
             return False
 
@@ -36,9 +36,8 @@ class Solution(object):
         # print courses_graph     # FIXME
 
         visited = [False] * numCourses
-        # for course in list(courses_graph):
         for course in xrange(numCourses):
-            print 'course: ', course    # FIXME
+            # print 'course: ', course    # FIXME
             if is_cycle(course, visited):
                 return False
 
