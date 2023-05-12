@@ -54,7 +54,7 @@ class Solution:
         return num_semesters
 
     # dfs; cycle detection; path length calculation
-    def minimumSemesters(self, n: int, relations: List[List[int]]) -> int:
+    def minimumSemesters_dfs(self, n: int, relations: List[List[int]]) -> int:
         # build graph
         graph = collections.defaultdict(list)
         for parent_node, child_node in relations:
@@ -72,7 +72,6 @@ class Solution:
         #     visited[node] = False
         #     return False
 
-        # check cycles
         visited = {}
         IN_PROGRESS, VISITED = 1, 0
 
@@ -83,8 +82,8 @@ class Solution:
             else:
                 # mark as visiting
                 visited[node] = IN_PROGRESS
-            for end_node in graph[node]:
-                if has_cycle_dfs(end_node):
+            for child_node in graph[node]:
+                if has_cycle_dfs(child_node):
                     # we meet a cycle!
                     return True
             # mark as visited
@@ -114,3 +113,42 @@ class Solution:
             num_semesters = max(num_semesters, calc_path_len_dfs(node))
 
         return num_semesters
+
+    # dfs; cycle detection; path length calculation -- shorter
+    def minimumSemesters(self, n: int, relations: List[List[int]]) -> int:
+        # build graph
+        graph = collections.defaultdict(list)
+        for parent_node, child_node in relations:
+            graph[parent_node].append(child_node)
+
+        # calculate max path len; detect cycles
+        visited = {}  # node: max_path_len
+
+        def has_cycle_dfs(node: int):
+            # return path len or -1 if graph has a cycle
+            if node in visited:
+                return visited[node]
+            else:
+                # mark as visiting with a negative len
+                visited[node] = -1
+
+            max_len = 1
+            for child_node in graph[node]:
+                curr_len = has_cycle_dfs(child_node)
+                if curr_len == -1:
+                    # we meet a cycle!
+                    return -1
+                max_len = max(max_len, curr_len + 1)
+            # mark as visited
+            visited[node] = max_len
+
+            return max_len
+
+        max_len = -1
+        for node in range(1, n + 1):
+            curr_len = has_cycle_dfs(node)
+            if curr_len == -1:
+                return -1
+            max_len = max(max_len, curr_len)
+
+        return max_len
