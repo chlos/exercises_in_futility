@@ -37,12 +37,34 @@ class Solution(object):
 
         return stack    # FIXME
 
-if __name__ == "__main__":
-    s = Solution()
+class Solution:
+    # topological sort; Kahn's algorithm; BFS
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # build graph
+        graph = {node: [] for node in range(numCourses)}
+        in_degrees = {node: 0 for node in range(numCourses)}
+        for child_node, parent_node in prerequisites:
+            graph[parent_node].append(child_node)
+            in_degrees[child_node] += 1
 
-    order = s.findOrder(4, [[1, 0], [2, 0], [3, 1], [3, 2]])
-    assert order == [0, 1, 2, 3]
-    order = s.findOrder(2, [[1, 0]])
-    assert order == [0, 1]
-    order = s.findOrder(2, [[0, 1], [1, 0]])
-    assert order == []
+        # find sources
+        sources = collections.deque()
+        for node, in_count in in_degrees.items():
+            if in_count <= 0:
+                sources.append(node)
+
+        # take courses with prereqs satisfied
+        courses_taken = 0
+        while sources:
+            curr_node = sources.popleft()
+            courses_taken += 1
+            child_nodes = graph[curr_node]
+            for child_node in child_nodes:
+                in_degrees[child_node] -= 1
+                if in_degrees[child_node] <= 0:
+                    sources.append(child_node)
+
+        if courses_taken != numCourses:
+            return False
+
+        return True
