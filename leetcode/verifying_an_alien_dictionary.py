@@ -1,61 +1,28 @@
 #!/usr/bin/env python3
 
-from typing import List
+
+from types import List
 
 
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        abc_map = {}
-        for i, ch in enumerate(order):
-            abc_map[ch] = i
+        order_map = {ch: i for i, ch in enumerate(order)}
 
-        prev_word = None
-        for word in words:
-            if prev_word is None:
-                prev_word = word
-                continue
-
-            curr_len = min(len(prev_word), len(word))
-            for i in range(curr_len):
-                if abc_map[prev_word[i]] > abc_map[word[i]]:
+        for word_i in range(len(words) - 1):
+            curr_word = words[word_i]
+            next_word = words[word_i + 1]
+            for ch_i in range(len(curr_word)):
+                if ch_i >= len(next_word):
+                    # first word is bigger that the second one (it breaks the sorted order)
                     return False
-                elif abc_map[prev_word[i]] < abc_map[word[i]]:
+                if curr_word[ch_i] == next_word[ch_i]:
+                    # equal chars
+                    continue
+                if order_map[curr_word[ch_i]] < order_map[next_word[ch_i]]:
+                    # this pair is in sorted order, check the next pair
                     break
                 else:
-                    if i == curr_len - 1 and len(prev_word) > len(word):
-                        return False
-
-            prev_word = word
+                    # this pair is not in sorted order, words ar not sorted
+                    return False
 
         return True
-
-
-s = Solution()
-
-words = ['hello', 'leetcode']
-order = 'hlabcdefgijkmnopqrstuvwxyz'
-assert s.isAlienSorted(words, order)
-print(words, 'OK')
-
-words = ['word', 'world', 'row']
-order = 'worldabcefghijkmnpqstuvxyz'
-assert not s.isAlienSorted(words, order)
-print(words, 'OK')
-
-words = ['apple', 'app']
-order = 'abcdefghijklmnopqrstuvwxyz'
-assert not s.isAlienSorted(words, order)
-print(words, 'OK')
-
-words = ['kuvp', 'q']
-order = 'ngxlkthsjuoqcpavbfdermiywz'
-assert s.isAlienSorted(words, order)
-print(words, 'OK')
-
-words = [
-    'zirqhpfscx', 'zrmvtxgelh', 'vokopzrtc', 'nugfyso', 'rzdmvyf',
-    'vhvqzkfqis', 'dvbkppw', 'ttfwryy', 'dodpbbkp', 'akycwwcdog',
-]
-order = 'khjzlicrmunogwbpqdetasyfvx'
-assert not s.isAlienSorted(words, order)
-print(words, 'OK')
