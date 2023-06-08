@@ -22,7 +22,7 @@ class Solution:
                 # abcd -> ab: These cases will never result in a valid alphabet
                 # (because in a valid alphabet, prefixes are always first)
                 if len(word_1) > len(word_2):
-                    return ''
+                    return ""
 
         # BFS
         result = []
@@ -35,7 +35,7 @@ class Solution:
                 if in_count[adj_ch] == 0:
                     queue.append(adj_ch)
 
-        # not all chars in the result => 
+        # not all chars in the result =>
         if len(result) < len(in_count):
-            return ''
-        return ''.join(result)
+            return ""
+        return "".join(result)
