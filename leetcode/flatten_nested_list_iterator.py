@@ -2,7 +2,7 @@
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger:
+# class NestedInteger:
 #    def isInteger(self) -> bool:
 #        """
 #        @return True if this NestedInteger holds a single integer, rather than a nested list.
@@ -23,6 +23,7 @@
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
+
 
 # recursive dfs + flat list
 class NestedIterator_recurDFSFlatList:
@@ -50,6 +51,7 @@ class NestedIterator_recurDFSFlatList:
     def hasNext(self) -> bool:
         return self.curr_pos < len(self.flat_list)
 
+
 # recursive dfs + generator
 class NestedIterator:
     def __init__(self, nestedList: [NestedInteger]):
@@ -75,11 +77,12 @@ class NestedIterator:
     def hasNext(self) -> bool:
         if self._peeked is not None:
             return True
-        try: # Get another integer out of the generator.
+        try:  # Get another integer out of the generator.
             self._peeked = next(self._generator)
             return True
-        except: # The generator is finished so raised StopIteration.
+        except:  # The generator is finished so raised StopIteration.
             return False
+
 
 # iterative dfs + stack
 class NestedIterator_StackIterDFS:
@@ -88,9 +91,7 @@ class NestedIterator_StackIterDFS:
 
     def __updStackToTopInt(self):
         while self.stack and not self.stack[-1].isInteger():
-            self.stack.extend(
-                reversed(self.stack.pop().getList())
-            )
+            self.stack.extend(reversed(self.stack.pop().getList()))
 
     def next(self) -> int:
         self.__updStackToTopInt()
