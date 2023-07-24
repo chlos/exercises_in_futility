@@ -1,23 +1,31 @@
-"""
+# similar: https://leetcode.com/problems/binary-tree-right-side-view/
+
+
 # Definition for a Node.
 class Node:
-    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+    def __init__(
+        self,
+        val: int = 0,
+        left: "Node" = None,
+        right: "Node" = None,
+        next: "Node" = None,
+    ):
         self.val = val
         self.left = left
         self.right = right
         self.next = next
-"""
+
 
 class Solution:
     # naive: level traversal + hashmap with levels
     # space: O(2n)
-    def connect_hashmap(self, root: 'Optional[Node]') -> 'Optional[Node]':
+    def connect_hashmap(self, root: "Optional[Node]") -> "Optional[Node]":
         if not root:
             return root
 
         levels = collections.defaultdict(list)
 
-        queue = collections.deque([(root, 0)])    # (node, level)
+        queue = collections.deque([(root, 0)])  # (node, level)
         while queue:
             node, level = queue.popleft()
             levels[level].append(node)
@@ -35,7 +43,7 @@ class Solution:
     # Level Order Traversal
     # count queue len
     # space O(n)
-    def connect_traversal(self, root: 'Optional[Node]') -> 'Optional[Node]':
+    def connect_traversal(self, root: "Optional[Node]") -> "Optional[Node]":
         if not root:
             return root
 
@@ -60,7 +68,7 @@ class Solution:
         return root
 
     # Using previously established next pointers: iterative
-    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+    def connect(self, root: "Optional[Node]") -> "Optional[Node]":
         if not root:
             return root
 
@@ -87,7 +95,7 @@ class Solution:
         return root
 
     # Using previously established next pointers: recursive
-    def connect_recur(self, root: 'Optional[Node]') -> 'Optional[Node]':
+    def connect_recur(self, root: "Optional[Node]") -> "Optional[Node]":
         def rec(node, next_node=None):
             if not node:
                 return

@@ -1,8 +1,10 @@
-# Definition for a binary tree node.
+# similar: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+
 import collections
 from typing import List, Optional
 
 
+# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
