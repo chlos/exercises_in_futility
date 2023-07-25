@@ -59,7 +59,7 @@ class Solution:
 
     # BFS
     # one queue + sentinel marker
-    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+    def rightSideView_BFSsentinel(self, root: Optional[TreeNode]) -> List[int]:
         result = []
         if root is None:
             return result
@@ -86,12 +86,27 @@ class Solution:
 
         return result
 
-    # BFS
-    def rightSideView_tmp(self, root: Optional[TreeNode]) -> List[int]:
+    # BFS: one queue + level size measurements
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         result = []
         if root is None:
             return result
 
-        # FIXME
+        queue = collections.deque([root])
+        while queue:
+            level_len = len(queue)
+
+            # iter through the curr level
+            for i in range(level_len):
+                node = queue.popleft()
+                # right-most node
+                if i == level_len - 1:
+                    result.append(node.val)
+
+                # add next level's nodes
+                if node.left is not None:
+                    queue.append(node.left)
+                if node.right is not None:
+                    queue.append(node.right)
 
         return result
