@@ -22,7 +22,7 @@ class Solution:
             )
 
         return isValidRecur(root, -float("inf"), float("inf"))
-    
+
     # iterative; DFS; with valid range/bounds/limits
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         # node, lower_limit, upper_limit
@@ -30,7 +30,7 @@ class Solution:
 
         while stack:
             node, lower_limit, upper_limit = stack.pop()
-            
+
             if node is None:
                 continue
 
@@ -50,7 +50,7 @@ class Solution:
 
             if not isValidRecur(node.left):
                 return False
-            
+
             if node.val <= self.prev_val:
                 return False
             self.prev_val = node.val
